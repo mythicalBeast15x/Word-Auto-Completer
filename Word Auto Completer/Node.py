@@ -7,3 +7,4 @@ class Node:
 
     def get_children(self):
         return sorted(list(self.children.keys()))
+
