@@ -1,13 +1,44 @@
 from Node import Node
 
 class Tree:
+    letters = []
 
     def __init__(self):
         self.root = Node(None)
         self.root.is_root = True
 
+    #Creates a list of all lower case letters
+    def create_letterLst(self):
+        #ASCII code for lower case 'a'
+        i = 97
+        #122 is ASCII code for lower case 'z'
+        while i <= 122:
+            #Converts ASCII code to a char and adds this to list
+            Tree.letters.append(chr(i))
+            i = i + 1
+
+    #Checks if word contains anything other than a lower case letter
+    def check_word_validity(self,str):
+        #Flag for a valid or invalid word
+        valid_word = True
+        for char in str:
+            #If a character in the word is not in the all_letters list, it is not a letter
+            if char not in Tree.letters:
+                valid_word = False
+                break
+        return valid_word
+
     def insert_word(self, word):
-        self._insert(word, self.root)
+        #Sets the word to be uniformly all lowercase
+        word = word.lower()
+        #valid receives a Boolean value indicating whether the word is valid or not
+        valid = self.check_word_validity(word)
+        if valid == True:
+            #Insert word
+            self._insert(word, self.root)
+        else:
+            pass
+
 
     def _insert(self, word, node):
 
