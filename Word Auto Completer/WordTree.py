@@ -1,4 +1,15 @@
 from Node import Node
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, data):
+        self.stack.append(data)
+    def pop(self):
+        return self.stack.pop()
+    def peek(self):
+        return self.stack[-1]
+    def get_stack(self):
+        return self.stack
 
 class Tree:
     letters = []
@@ -6,7 +17,7 @@ class Tree:
     def __init__(self):
         self.root = Node(None)
         self.root.is_root = True
-
+    '''
     #Creates a list of all lower case letters
     def create_letterLst(self):
         #ASCII code for lower case 'a'
@@ -16,7 +27,7 @@ class Tree:
             #Converts ASCII code to a char and adds this to list
             Tree.letters.append(chr(i))
             i = i + 1
-
+    
     #Checks if word contains anything other than a lower case letter
     def check_word_validity(self,str):
         #Flag for a valid or invalid word
@@ -27,17 +38,20 @@ class Tree:
                 valid_word = False
                 break
         return valid_word
-
+    '''
     def insert_word(self, word):
         #Sets the word to be uniformly all lowercase
         word = word.lower()
         #valid receives a Boolean value indicating whether the word is valid or not
-        valid = self.check_word_validity(word)
-        if valid == True:
+        #valid = self.check_word_validity(word)
+        valid = True
+        for letter in word:
+            valid =  letter.isalpha() #checks if the char is a letter
+            if not valid:
+                break
+        if valid:
             #Insert word
             self._insert(word, self.root)
-        else:
-            pass
 
 
     def _insert(self, word, node):
@@ -78,3 +92,40 @@ class Tree:
                 node.children[node.get_children()[0]])
         else:
             return node.data
+    def find_closest_words(self, word, num):
+        words = []
+        node = self.root
+        in_db = True
+        for letter in word:
+            if letter in node.get_children():
+                node = node.children[letter]
+            else:
+                print('not in database')
+                in_db = False
+                break
+        stack = Stack()
+        if in_db:
+            ignore = False
+            if node.is_word:
+                ignore = True
+            self._return_leftmost2(node,stack,words,num,ignore)
+            words = [word[:-1]+"".join(map(str,x)) for x in words]
+            return words
+        else:
+            return None
+
+    def _return_leftmost2(self, node: Node, stack: Stack, words, num, ignore=False):
+        stack.push(node.data)
+        if not node.is_word or ignore:
+            counter = 0
+            while not len(words) == num and counter < len(node.get_children()):
+                self._return_leftmost2(
+                    node.children[node.get_children()[counter]],stack,words,num)
+                stack.pop()
+                counter += 1
+        else:
+            words.append(stack.get_stack()[:])
+            if not len(words) == num:
+                if len(node.get_children()) > 0: # still connections from node
+                    self._return_leftmost2(node,stack,words,num,True)
+
