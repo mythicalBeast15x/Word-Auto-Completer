@@ -1,15 +1,29 @@
+'''
+The tree structure that will hold the all the letters
+for the words. The tree will be traversed in order to
+produce a word and determine how many words can come
+from those combination of letters.
+'''
+
 from Node import Node
+
+
 class Stack():
     def __init__(self):
         self.stack = []
+
     def push(self, data):
         self.stack.append(data)
+
     def pop(self):
         return self.stack.pop()
+
     def peek(self):
         return self.stack[-1]
+
     def get_stack(self):
         return self.stack
+
 
 class Tree:
     letters = []
@@ -39,25 +53,25 @@ class Tree:
                 break
         return valid_word
     '''
+
     def insert_word(self, word):
-        #Sets the word to be uniformly all lowercase
+        # Sets the word to be uniformly all lowercase
         word = word.lower()
-        #valid receives a Boolean value indicating whether the word is valid or not
-        #valid = self.check_word_validity(word)
+        # valid receives a Boolean value indicating whether the word is valid or not
+        # valid = self.check_word_validity(word)
         valid = True
         for letter in word:
-            valid =  letter.isalpha() #checks if the char is a letter
+            valid = letter.isalpha()  # checks if the char is a letter
             if not valid:
                 break
         if valid:
-            #Insert word
+            # Insert word
             self._insert(word, self.root)
-
 
     def _insert(self, word, node):
 
         if word[0] not in node.get_children():
-            #node.children.update({word[0]:Node(word[0])})
+            # node.children.update({word[0]:Node(word[0])})
             node.children[word[0]] = Node(word[0])
         #print('node:',node.data,'->' , node.get_children())
         if len(word) > 1:
@@ -86,12 +100,13 @@ class Tree:
     def _return_leftmost(self, node: Node):
         #found_word = ""
         if not node.is_word:
-            #print(node.is_word)
-            #print(node.data)
+            # print(node.is_word)
+            # print(node.data)
             return node.data + self._return_leftmost(
                 node.children[node.get_children()[0]])
         else:
             return node.data
+
     def find_closest_words(self, word, num):
         words = []
         node = self.root
@@ -108,8 +123,8 @@ class Tree:
             ignore = False
             if node.is_word:
                 ignore = True
-            self._return_leftmost2(node,stack,words,num,ignore)
-            words = [word[:-1]+"".join(map(str,x)) for x in words]
+            self._return_leftmost2(node, stack, words, num, ignore)
+            words = [word[:-1]+"".join(map(str, x)) for x in words]
             return words
         else:
             return None
@@ -120,12 +135,11 @@ class Tree:
             counter = 0
             while not len(words) == num and counter < len(node.get_children()):
                 self._return_leftmost2(
-                    node.children[node.get_children()[counter]],stack,words,num)
+                    node.children[node.get_children()[counter]], stack, words, num)
                 stack.pop()
                 counter += 1
         else:
             words.append(stack.get_stack()[:])
             if not len(words) == num:
-                if len(node.get_children()) > 0: # still connections from node
-                    self._return_leftmost2(node,stack,words,num,True)
-
+                if len(node.get_children()) > 0:  # still connections from node
+                    self._return_leftmost2(node, stack, words, num, True)
