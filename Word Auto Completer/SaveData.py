@@ -24,7 +24,7 @@ tree = createTree()
 
 This is how to save the tree to a file.
 saveInformation(
-    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data', 'r')
+    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data', createTree())
 
 This gets the object from the file.
 tree = retrieveInformation(
