@@ -16,6 +16,19 @@ Use this for the main tree.
 
 Use this for the temporary tree.
 'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data'
+
+Here is an example of how to use this class.
+
+This is how to create the tree.
+tree = createTree()
+
+This is how to save the tree to a file.
+saveInformation(
+    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data', 'r')
+
+This gets the object from the file.
+tree = retrieveInformation(
+    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
 '''
 
 
@@ -43,19 +56,3 @@ def createTree():
     for word in words:
         tree.insert_word(word.strip())
     return tree
-
-
-'''
-Here is an example of how to use this class.
-
-This is how to create the tree.
-tree = createTree()
-
-This is how to save the tree to a file.
-saveInformation(
-    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data', 'r')
-
-This gets the object from the file.
-tree = retrieveInformation(
-    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
-'''
