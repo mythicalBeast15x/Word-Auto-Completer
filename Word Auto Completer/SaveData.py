@@ -29,6 +29,15 @@ saveInformation(
 This gets the object from the file.
 tree = retrieveInformation(
     'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
+
+If the file retrieveInformation is not working then the directory must be changed.
+Use these if that happens.
+
+tree = retrieveInformation(
+    'Word Auto Completer/tempSaveInformation.data')
+
+tree = retrieveInformation(
+    'tempSaveInformation.data')
 '''
 
 
