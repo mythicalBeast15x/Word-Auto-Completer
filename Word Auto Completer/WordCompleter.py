@@ -9,8 +9,25 @@ from SaveData import *
 
 
 # Gets the tree from the binary file.
-tree = retrieveInformation(
-    'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
+# Ensures that the if finds the file in the directory.
+try:
+    tree = retrieveInformation(
+        'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
+except FileNotFoundError:
+    try:
+        tree = retrieveInformation(
+            'Word Auto Completer/tempSaveInformation.data')
+    except FileNotFoundError:
+        try:
+            tree = retrieveInformation(
+                'tempSaveInformation.data')
+        except:
+            print("There was an error.")
+    except:
+        print("There was an error.")
+except:
+    print("There was en error.")
+
 tree.insert_word('byte')
 
 word_part = input('enter a word: ')
