@@ -4,6 +4,8 @@ and run the program. Calls the saved data structure
 from a saved file to improve speed of the application.
 '''
 
+import logging
+import sys
 from WordTree import Tree
 from SaveData import *
 
@@ -12,7 +14,7 @@ from SaveData import *
 # Ensures that the if finds the file in the directory.
 try:
     tree = retrieveInformation(
-        'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
+        'Word-Auto-Completer/Word Auto Completer/tempSaveInformation')
 except FileNotFoundError:
     try:
         tree = retrieveInformation(
@@ -21,12 +23,15 @@ except FileNotFoundError:
         try:
             tree = retrieveInformation(
                 'tempSaveInformation.data')
-        except:
-            print("There was an error.")
-    except:
-        print("There was an error.")
-except:
-    print("There was en error.")
+        except Exception as e:
+            logging.log(40, e)
+            sys.exit(0)
+    except Exception as e:
+        logging.log(40, e)
+        sys.exit(0)
+except Exception as e:
+    logging.log(40, e)
+    sys.exit(0)
 
 tree.insert_word('byte')
 

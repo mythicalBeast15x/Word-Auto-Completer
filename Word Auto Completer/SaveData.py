@@ -9,6 +9,8 @@ the final product.
 
 from WordTree import Tree
 import pickle
+import logging
+import sys
 
 '''
 Use this for the main tree.
@@ -42,14 +44,18 @@ tree = retrieveInformation(
 
 
 # Saves the object as binary to a file.
-def saveInformation(inputFile, inputObject):
-    with open(inputFile, 'wb') as file:
-        # Converts the file to a binary file.
-        pickle.dump(inputObject, file)
+def saveInformation(inputFile: str, inputObject: Tree) -> None: 
+    try:
+        with open(inputFile, 'wb') as file:
+            # Converts the file to a binary file.
+            pickle.dump(inputObject, file)
+    except Exception as e:
+        logging.log(e)
+        sys.exit(0)
 
 
 # Loads the object from the binary file.
-def retrieveInformation(inputFile):
+def retrieveInformation(inputFile: str) -> Tree:
     with open(inputFile, 'rb') as file:
         # Returns the object.
         return pickle.load(file)
@@ -59,7 +65,23 @@ def retrieveInformation(inputFile):
 def createTree():
     tree = Tree()
     # Open and read the file.
-    file = open('Word-Auto-Completer/Word Auto Completer/Words.txt', 'r')
+    try:
+        file = open('Word-Auto-Completer/Word Auto Completer/Words.txt', 'r')
+    except FileNotFoundError:
+        try:
+            file = open('Word Auto Completer/Words.txt', 'r')
+        except FileNotFoundError:
+            try:
+                file = open('Words.txt', 'r')
+            except Exception as e:
+                logging.log(40, e)
+                sys.exit(0)
+        except Exception as e:
+            logging.log(40, e)
+            sys.exit(0)
+    except Exception as e:
+        logging.log(40, e)
+        sys.exit(0)
     words = file.readlines()
     # Appends each letter to the tree.
     for word in words:
