@@ -1,6 +1,8 @@
-# Node class that represents a letter in the tree data structure.
-# Multiple nodes can represent the same letter but determining
-# if that node is a word will help distinguish what word it is.
+'''
+Node class that represents a letter in the tree data structure.
+Multiple nodes can represent the same letter but determining
+if that node is a word will help distinguish what word it is.
+'''
 
 class Node:
     def __init__(self, data):
