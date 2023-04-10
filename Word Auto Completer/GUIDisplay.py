@@ -1,3 +1,11 @@
+'''
+This is the GUI that the user will use when
+using the application. Provides functionality
+to the tree class by properly displaying the
+word data and suggesting what the user can
+type from what was input. 
+'''
+
 from WordCompleter import tree
 
 import tkinter as tk

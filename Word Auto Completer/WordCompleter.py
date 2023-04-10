@@ -11,10 +11,10 @@ from SaveData import *
 
 
 # Gets the tree from the binary file.
-# Ensures that the if finds the file in the directory.
+# Ensures that the it finds the file in the directory.
 try:
     tree = retrieveInformation(
-        'Word-Auto-Completer/Word Auto Completer/tempSaveInformation')
+        'Word-Auto-Completer/Word Auto Completer/tempSaveInformation.data')
 except FileNotFoundError:
     try:
         tree = retrieveInformation(
