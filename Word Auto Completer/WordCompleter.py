@@ -22,7 +22,7 @@ except FileNotFoundError:
     except FileNotFoundError:
         try:
             tree = retrieveInformation(
-                'tempSaveInformation.data')
+                'tempSaveInformationdata')
         except Exception as e:
             logging.log(40, e)
             sys.exit(0)
@@ -33,8 +33,8 @@ except Exception as e:
     logging.log(40, e)
     sys.exit(0)
 
-tree.insert_word('byte')
+# tree.insert_word('byte')
 
-#word_part = input('enter a word: ')
-print(tree.find_closest_word('br'))
-#print(tree.find_closest_words('br', 3))
+# word_part = input('enter a word: ')
+# print(tree.find_closest_word('br'))
+# print(tree.find_closest_words('br', 3))

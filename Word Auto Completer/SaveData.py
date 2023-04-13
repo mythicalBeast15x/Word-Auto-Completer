@@ -62,17 +62,17 @@ def retrieveInformation(inputFile: str) -> Tree:
 
 
 # Creates the tree and the information.
-def createTree():
+def createTree(file: str) -> Tree:
     tree = Tree()
     # Open and read the file.
     try:
-        file = open('Word-Auto-Completer/Word Auto Completer/Words.txt', 'r')
+        file = open('Word-Auto-Completer/Word Auto Completer/' + file, 'r')
     except FileNotFoundError:
         try:
-            file = open('Word Auto Completer/Words.txt', 'r')
+            file = open('Word Auto Completer/' + file, 'r')
         except FileNotFoundError:
             try:
-                file = open('Words.txt', 'r')
+                file = open(file, 'r')
             except Exception as e:
                 logging.log(40, e)
                 sys.exit(0)
@@ -87,3 +87,4 @@ def createTree():
     for word in words:
         tree.insert_word(word.strip())
     return tree
+
