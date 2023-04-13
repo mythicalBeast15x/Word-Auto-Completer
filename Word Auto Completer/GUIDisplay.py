@@ -12,6 +12,7 @@ import tkinter as tk
 
 def find_auto_complete_part(s1:str, s2:str): # returns part of the word that would be auto completed
     try:
+        print('replaced:',s2.replace(s1, ""))
         return s2.replace(s1, "")
     except Exception:
         return " - No suggestions"
@@ -51,7 +52,8 @@ def auto_completer(event):
         input_box.delete(tk.INSERT, "end") # clear any recommendations
     
     elif (key_code >= 65 and key_code <= 122) or (event.keysym == "BackSpace"):
-        closest_word = tree.find_closest_word(typed) # find closest word
+        #print('typed:',typed, 'reccomended:',tree.find_closest_word(typed))
+        closest_word = tree.find_closest_words(typed,1)[0] # find closest word
         auto_complete_part = find_auto_complete_part(typed, closest_word) # find the auto-completed part 
 
         input_box.delete(cursor_index, "end") # delete everything after the cursor
