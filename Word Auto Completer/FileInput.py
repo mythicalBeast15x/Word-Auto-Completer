@@ -11,6 +11,7 @@ in which the data from phrases will be added to the
 UpdatedTemporaryWords.txt and it is important to make
 sure the path is correct.
 '''
+
 # This takes a file and appends all the information within 
 # it to another file.
 def appendToFile(addToFile: str, fileData: str) -> None:
