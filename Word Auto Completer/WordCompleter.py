@@ -22,7 +22,7 @@ except FileNotFoundError:
     except FileNotFoundError:
         try:
             tree = retrieveInformation(
-                'tempSaveInformationdata')
+                'tempSaveInformation.data')
         except Exception as e:
             logging.log(40, e)
             sys.exit(0)

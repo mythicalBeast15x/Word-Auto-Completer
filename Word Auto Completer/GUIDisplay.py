@@ -40,7 +40,12 @@ clear_btn = tk.Button(frm, height=1, width=3, text="Clear", fg="white", bg="blac
 
 def auto_completer(event):
     cursor_index = input_box.index(tk.INSERT) # get index of the cursor
-    typed = input_box.get("1.0", cursor_index) # return the text that the user type
+    space_index = input_box.search(" ", "end", backwards=True) # keep track of the space character
+
+    if space_index != "": # if space was typed
+        typed = input_box.get(space_index+"+1c", cursor_index) # return the text after the space
+    else:
+        typed = input_box.get("1.0", cursor_index) # return the text that the user type
 
     key_code = 0
     try:
@@ -51,9 +56,10 @@ def auto_completer(event):
     if typed == "": # if nothing was typed
         input_box.delete(tk.INSERT, "end") # clear any recommendations
     
-    elif (key_code >= 65 and key_code <= 122) or (event.keysym == "BackSpace"):
+    elif (key_code >= 65 and key_code <= 122) or (event.keysym == "BackSpace" or event.keysym == "space"):
         #print('typed:',typed, 'reccomended:',tree.find_closest_word(typed))
         closest_word = tree.find_closest_words(typed,1)[0] # find closest word
+        #closest_word = tree.find_closest_word(typed) # find closest word
         auto_complete_part = find_auto_complete_part(typed, closest_word) # find the auto-completed part 
 
         input_box.delete(cursor_index, "end") # delete everything after the cursor
@@ -68,7 +74,7 @@ def auto_completer(event):
         word = input_box.get(tk.INSERT, "end") # retrieve the word from the text box
         input_box.delete(tk.INSERT, "end") # clear the text box
         input_box.insert(tk.INSERT, word) # insert the word back with default font color
-    
+        input_box.mark_set(tk.INSERT, "end-2c")
     else:
         print("press a letter key")
 
