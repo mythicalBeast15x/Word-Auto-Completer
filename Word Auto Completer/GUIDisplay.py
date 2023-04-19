@@ -7,7 +7,8 @@ type from what was input.
 '''
 
 import tkinter as tk
-from WordCompleter import tree
+from SaveData import tree
+
 
 # class for the textbox where the user will type
 class Text_box(tk.Text): # inherits from tkinter's Text class
@@ -78,7 +79,6 @@ class GUI(): # main GUI class encapsulates the window, buttons, textbox
         self.frm = tk.Frame(self.window) # create frame
         # create textbox
         self.text_box = Text_box(self.frm, height=1, font=('Arial', 14), wrap='word', fg="white", insertbackground="white", bg="black")
-        
         # Instantiates button object
         self.clear_btn = tk.Button(self.frm, height=1, width=3, text="Clear", fg="white", bg="black",command=self.text_box.clear)
 
@@ -99,5 +99,5 @@ class GUI(): # main GUI class encapsulates the window, buttons, textbox
 
         self.window.mainloop()
 
-gui = GUI() # instantiate GUI object
-gui.display() # displays the GUI
+# gui = GUI() # instantiate GUI object
+# gui.display() # displays the GUI

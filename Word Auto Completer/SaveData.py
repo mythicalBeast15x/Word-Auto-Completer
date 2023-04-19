@@ -88,3 +88,26 @@ def createTree(file: str) -> Tree:
         tree.insert_word(word.strip())
     return tree
 
+
+# Gets the tree from the binary file.
+# Ensures that the it finds the file in the directory.
+try:
+    tree = retrieveInformation(
+        'Word-Auto-Completer/Word Auto Completer/saveInformation.data')
+except FileNotFoundError:
+    try:
+        tree = retrieveInformation(
+            'Word Auto Completer/saveInformation.data')
+    except FileNotFoundError:
+        try:
+            tree = retrieveInformation(
+                'saveInformation.data')
+        except Exception as e:
+            logging.log(40, e)
+            sys.exit(0)
+    except Exception as e:
+        logging.log(40, e)
+        sys.exit(0)
+except Exception as e:
+    logging.log(40, e)
+    sys.exit(0)
