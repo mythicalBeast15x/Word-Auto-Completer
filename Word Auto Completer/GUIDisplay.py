@@ -10,6 +10,9 @@ import tkinter as tk
 from SaveData import tree
 
 
+# gui = GUI() # instantiate GUI object
+# gui.display() # displays the GUI
+
 # class for the textbox where the user will type
 class Text_box(tk.Text): # inherits from tkinter's Text class
     def __init_subclass__(cls) -> None: # constructor inherits from super class
@@ -98,6 +101,3 @@ class GUI(): # main GUI class encapsulates the window, buttons, textbox
         self.window.bind("<Key>", lambda event: self.text_box.auto_completer(event, self.window))
 
         self.window.mainloop()
-
-# gui = GUI() # instantiate GUI object
-# gui.display() # displays the GUI
