@@ -44,7 +44,7 @@ tree = retrieveInformation(
 
 
 # Saves the object as binary to a file.
-def saveInformation(inputFile: str, inputObject: Tree) -> None: 
+def saveInformation(inputFile: str, inputObject: Tree) -> None:
     try:
         with open(inputFile, 'wb') as file:
             # Converts the file to a binary file.
@@ -87,7 +87,6 @@ def createTree(file: str) -> Tree:
     for word in words:
         tree.insert_word(word.strip())
     return tree
-
 
 # Gets the tree from the binary file.
 # Ensures that the it finds the file in the directory.
