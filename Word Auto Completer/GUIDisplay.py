@@ -27,9 +27,9 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         except Exception:
             return " - No suggestions"
     
-    def recommend_word(self, typed:str): # displays part of the word which will be recommended
+    def recommend_word(self, typed:str, event:tk.Event): # displays part of the word which will be recommended
         cursor_index = self.index(tk.INSERT) # get the cursor's index
-        closest_word = tree.find_closest_words(typed, self.num_words)[self.word_index] # get the closest word to what the user typed
+        closest_word = self.toggle_recommendation(typed, event) # get the closest word to what the user typed
         faded_part = self.find_auto_complete_part(typed, closest_word) # recommended portion will be faded
 
         self.delete(cursor_index, "end") # clear any previous recommendations
@@ -56,13 +56,12 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         
     def auto_completer(self, event:tk.Event, window:tk.Tk): # main auto completer function
         typed = self.get_typed()
-        self.toggle_recommendation(event)
 
         if typed == "": # if nothing was typed
             self.delete(tk.INSERT, "end") # clear any recommendations
         else:        
             if self.valid_input(typed):
-                self.recommend_word(typed)
+                self.recommend_word(typed, event)
                 window.bind("<Return>", lambda event: self.complete_word(event))
 
     def valid_input(self, typed:str) -> bool: # validates what the user typed
@@ -73,11 +72,15 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
                 return False
         return True
 
-    def toggle_recommendation(self, event:tk.Event): # return other recommended words
+    def toggle_recommendation(self, typed:str, event:tk.Event) -> str: # return other recommended words
+        recommended_words = tree.find_closest_words(typed, self.num_words) 
         if event.keysym == "Up":
             self.word_index += 1
-        if self.word_index >= self.num_words:
+
+        if self.word_index >= len(recommended_words):
             self.word_index = 0
+
+        return recommended_words[self.word_index]
 
     def clear(self): # clear the textbox
         self.delete("1.0", "end")
