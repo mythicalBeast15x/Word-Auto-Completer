@@ -6,5 +6,4 @@ Credit :
     User ryandoyle5401 on Github, 
     User mythicalBeast15x on Github,
     User sma6629 on Github,
-    User justyden on Github,
-    User nelsnoic on GitHub for the use of the text file that contains all words.
+    User justyden on Github
