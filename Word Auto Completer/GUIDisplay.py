@@ -94,14 +94,18 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         return True
 
     def toggle_recommendation(self, typed:str, event:tk.Event) -> str: # return other recommended words
-        recommended_words = tree.find_closest_words(typed, self.num_words) 
-        if event.keysym == "Up":
-            self.word_index += 1
+        recommended_words = tree.find_closest_words(typed, self.num_words)
+        #print(len(recommended_words))
+        if len(recommended_words) > 0:
+            if event.keysym == "Up":
+                self.word_index += 1
 
-        if self.word_index >= len(recommended_words):
-            self.word_index = 0
+            if self.word_index >= len(recommended_words):
+                self.word_index = 0
 
-        return recommended_words[self.word_index]
+            return recommended_words[self.word_index]
+        else:
+            return None
 
     def clear(self): # clear the textbox
         self.delete("1.0", "end")
