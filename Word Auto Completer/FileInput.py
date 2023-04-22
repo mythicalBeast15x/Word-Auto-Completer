@@ -15,7 +15,13 @@ sure the path is correct.
 # This takes a file and appends all the information within 
 # it to another file.
 def appendToFile(addToFile: str, fileData: str) -> None:
-    # Creates a list that will hold all the data from the data file.
+    """This takes a file and appends all the information within 
+    it to another file.
+
+    Args:
+        addToFile (str): The file that data will be appended to.
+        fileData (str): The file that the data will be taken from.
+    """
     wordList = []
     with open(fileData, 'r') as fileRead:
         for line in fileRead:
