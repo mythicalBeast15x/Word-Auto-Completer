@@ -43,8 +43,17 @@ tree = retrieveInformation(
 '''
 
 
-# Saves the object as binary to a file.
 def saveInformation(inputFile: str, inputObject: Tree) -> None:
+    """Saves the object as binary to a file.
+
+    Args:
+        inputFile (str): The file that saves the tree data.
+        inputObject (Tree): The tree data to be saved.
+
+    Raises:
+        e: The file was not found.
+    """
+
     try:
         with open(inputFile, 'wb') as file:
             # Converts the file to a binary file.
@@ -53,16 +62,34 @@ def saveInformation(inputFile: str, inputObject: Tree) -> None:
         logging.log(e)
         sys.exit(0)
 
-
-# Loads the object from the binary file.
 def retrieveInformation(inputFile: str) -> Tree:
+    """Loads the object from the binary file.
+
+    Args:
+        inputFile (str): The file path.
+
+    Returns:
+        Tree: Returns the tree.
+    """
+
     with open(inputFile, 'rb') as file:
         # Returns the object.
         return pickle.load(file)
 
 
-# Creates the tree and the information.
 def createTree(file: str) -> Tree:
+    """Creates the tree and the information.
+
+    Args:
+        file (str): The file path of the word data.
+
+    Returns:
+        Tree: The completed tree.
+
+    Raises:
+        e: The file was not found.
+    """
+
     tree = Tree()
     # Open and read the file.
     try:

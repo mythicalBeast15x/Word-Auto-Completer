@@ -20,6 +20,7 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         num_words: int
         word_index: int
     """
+
     def __init__(self, master=None, **kwargs):
         """The constructor that inherit from the super class.
 
@@ -28,6 +29,7 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
             num_words (int): Number of words to display.
             word_index (int): Spot the word is at.
         """
+
         super().__init__(master, **kwargs)
         self.num_words = 3
         self.word_index = 0
@@ -42,13 +44,21 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         Returns:
             str: Auto completed part of word.
         """
+
         try:
             #print('replaced:',s2.replace(s1, ""))
             return s2.replace(s1, "")
         except Exception:
             return " - No suggestions"
     
-    def recommend_word(self, typed:str, event:tk.Event): # displays part of the word which will be recommended
+    def recommend_word(self, typed:str, event:tk.Event) -> None:
+        """Displays part of the word which will be recommended.
+
+        Args:
+            typed (str): What has been typed.
+            event (tk.Event): The event handler that is called.
+        """
+
         cursor_index = self.index(tk.INSERT) # get the cursor's index
         closest_word = self.toggle_recommendation(typed, event) # get the closest word to what the user typed
         faded_part = self.find_auto_complete_part(typed, closest_word) # recommended portion will be faded
@@ -61,13 +71,25 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         self.tag_add(faded_part, cursor_index, "end") # create tag for the faded part
         self.tag_config(faded_part, foreground="gray") # give a gray color
 
-    def complete_word(self, event:tk.Event): # function to complete the word when user hits enter key
+    def complete_word(self, event:tk.Event) -> None:
+        """Function to complete the word when user hits enter key.
+
+        Args:
+            event (tk.Event): The event that is called to fill in the word.
+        """
+
         word = self.get(tk.INSERT, "end") # retrieve the word from the text box
         self.delete(tk.INSERT, "end") # clear the text box
         self.insert(tk.INSERT, word) # insert the word back with default font color
         self.mark_set(tk.INSERT, "end-2c")
 
-    def get_typed(self) -> str: # return the text that was typed by the user
+    def get_typed(self) -> str:
+        """Return the text that was typed by the user.
+
+        Returns:
+            str: The text the user typed.
+        """
+
         space_index = self.search(" ", "end", backwards=True)
 
         if space_index != "":
@@ -75,7 +97,14 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         else:
             return self.get("1.0", tk.INSERT)
         
-    def auto_completer(self, event:tk.Event, window:tk.Tk): # main auto completer function
+    def auto_completer(self, event:tk.Event, window:tk.Tk):
+        """Main auto completer function.
+
+        Args:
+            event (tk.Event): The event to happen.
+            window (tk.Tk): The window to be updated.
+        """
+
         typed = self.get_typed()
 
         if typed == "": # if nothing was typed
@@ -85,7 +114,16 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
                 self.recommend_word(typed, event)
                 window.bind("<Return>", lambda event: self.complete_word(event))
 
-    def valid_input(self, typed:str) -> bool: # validates what the user typed
+    def valid_input(self, typed:str) -> bool:
+        """Validates what the user typed.
+
+        Args:
+            typed (str): The user input.
+
+        Returns:
+            bool: Returns a value depending if there was a word found.
+        """
+
         for char in typed:
             if not char.isalpha(): # check if the character is an alphabet
                 self.delete(tk.INSERT, "end") # clear any recommendations
@@ -93,7 +131,17 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
                 return False
         return True
 
-    def toggle_recommendation(self, typed:str, event:tk.Event) -> str: # return other recommended words
+    def toggle_recommendation(self, typed:str, event:tk.Event) -> str:
+        """Return other recommended words.
+
+        Args:   
+            typed (str): The current typed word.
+            event (tk.Event): The event to call other words.
+
+        Returns:
+            str: Returns more words.
+        """
+
         recommended_words = tree.find_closest_words(typed, self.num_words)
         #print(len(recommended_words))
         if len(recommended_words) > 0:
@@ -107,11 +155,26 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         else:
             return None
 
-    def clear(self): # clear the textbox
+    def clear(self):
+        """Clears the text box.
+        """
+
         self.delete("1.0", "end")
 
-class GUI(): # main GUI class encapsulates the window, buttons, textbox
+class GUI():
+    """Main GUI class encapsulates the window, buttons and textbox.
+
+    Attributes:
+        window: Tk
+        frm: Frame
+        text_box: Text_box
+        clear_btn: Button
+    """
+
     def __init__(self) -> None:
+        """This is the constructor for the GUI to build.
+        """
+        
         self.window = tk.Tk() # create window
         self.frm = tk.Frame(self.window) # create frame
         # create textbox
@@ -119,7 +182,10 @@ class GUI(): # main GUI class encapsulates the window, buttons, textbox
         # Instantiates button object
         self.clear_btn = tk.Button(self.frm, height=1, width=3, text="Clear", fg="white", bg="black",command=self.text_box.clear)
 
-    def display(self): # display the GUI
+    def display(self):
+        """Display the GUI.
+        """
+        
         self.window.title("Word Completer") # add window title
         self.window.geometry("300x60") # customize window size/dimensions
         # Changes window background to black
