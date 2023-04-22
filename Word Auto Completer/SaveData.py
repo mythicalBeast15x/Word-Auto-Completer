@@ -62,6 +62,7 @@ def saveInformation(inputFile: str, inputObject: Tree) -> None:
         logging.log(e)
         sys.exit(0)
 
+
 def retrieveInformation(inputFile: str) -> Tree:
     """Loads the object from the binary file.
 
@@ -114,6 +115,7 @@ def createTree(file: str) -> Tree:
     for word in words:
         tree.insert_word(word.strip())
     return tree
+
 
 # Gets the tree from the binary file.
 # Ensures that the it finds the file in the directory.
