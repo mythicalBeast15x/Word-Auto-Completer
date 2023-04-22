@@ -13,14 +13,35 @@ from SaveData import tree
 # gui = GUI() # instantiate GUI object
 # gui.display() # displays the GUI
 
-# class for the textbox where the user will type
 class Text_box(tk.Text): # inherits from tkinter's Text class
+    """Class for the textbox where the user will type
+
+    Attributes:
+        num_words: int
+        word_index: int
+    """
     def __init__(self, master=None, **kwargs):
+        """The constructor that inherit from the super class.
+
+        Args:
+            master (_type_, optional): The class it will inherit from.
+            num_words (int): Number of words to display.
+            word_index (int): Spot the word is at.
+        """
         super().__init__(master, **kwargs)
         self.num_words = 3
         self.word_index = 0
 
-    def find_auto_complete_part(self, s1:str, s2:str): # returns part of the word that would be auto completed
+    def find_auto_complete_part(self, s1:str, s2:str) -> str:
+        """Returns part of the word that would be auto completed
+
+        Args:
+            s1 (str): The current word.
+            s2 (str): The word to replace it.
+
+        Returns:
+            str: Auto completed part of word.
+        """
         try:
             #print('replaced:',s2.replace(s1, ""))
             return s2.replace(s1, "")
