@@ -185,7 +185,7 @@ class GUI():
     def display(self):
         """Display the GUI.
         """
-        
+
         self.window.title("Word Completer") # add window title
         self.window.geometry("300x60") # customize window size/dimensions
         # Changes window background to black

@@ -7,12 +7,19 @@ if that node is a word will help distinguish what word it is.
 class Node:
     """The node class that will represents letters and hold references
     to any letters that it might be connected to.
+
+    Attributes:
+        data: chr
+        children: dictionary
+        is_word: Boolean
+        is_Root: Node
     """
+
     def __init__(self, data: chr) -> None:
         """The node constructor.
 
         Args:
-            data (_type_): A letter of a word.
+            data (chr): A letter of a word.
         """
 
         self.data = data
@@ -26,5 +33,5 @@ class Node:
         Returns:
             list: A list of the characters that are children of the current node.
         """
-        
+
         return sorted(list(self.children.keys()))
