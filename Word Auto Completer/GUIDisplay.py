@@ -34,19 +34,19 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         self.num_words = 5
         self.word_index = 0
 
-    def find_auto_complete_part(self, s1:str, s2:str) -> str:
+    def find_auto_complete_part(self, typed:str, recommended_word:str) -> str:
         """Returns part of the word that would be auto completed
 
         Args:
-            s1 (str): The current word.
-            s2 (str): The word to replace it.
+            typed (str): The string that the user typed.
+            recommend_word (str): The string/word that will be recommended.
 
         Returns:
             str: Auto completed part of word.
         """
 
         try:
-            return s2.replace(s1, "")
+            return recommended_word[len(typed):]
         except Exception:
             return ""
     
