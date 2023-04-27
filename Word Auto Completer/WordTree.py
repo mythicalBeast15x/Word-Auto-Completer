@@ -208,6 +208,7 @@ class Tree:
             ignore = False
             if node.is_word:
                 ignore = True
+            print(word)
             self._return_leftmost2(node, stack, words, num, ignore)
             words = [word[:-1]+"".join(map(str, x)) for x in words]
             return words
@@ -226,15 +227,22 @@ class Tree:
         """
         
         stack.push(node.data)
+        #print(node.data)
         if not node.is_word or ignore:
             counter = 0
             while not len(words) == num and counter < len(node.get_children()):
                 self._return_leftmost2(
                     node.children[node.get_children()[counter]], stack, words, num)
-                stack.pop()
+                if stack.peek() is not None:
+                    stack.pop()
                 counter += 1
         else:
             words.append(stack.get_stack()[:])
+
+
             if not len(words) == num:
                 if len(node.get_children()) > 0:  # still connections from node
+                    stack.pop()
                     self._return_leftmost2(node, stack, words, num, True)
+
+

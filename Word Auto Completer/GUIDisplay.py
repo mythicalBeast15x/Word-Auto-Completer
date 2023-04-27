@@ -143,17 +143,19 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         """
 
         recommended_words = tree.find_closest_words(typed, self.num_words)
+        print(recommended_words)
         #print(len(recommended_words))
-        if len(recommended_words) > 0:
-            if event.keysym == "Up":
-                self.word_index += 1
+        if recommended_words is not None:
+            if len(recommended_words) > 0:
+                if event.keysym == "Up":
+                    self.word_index += 1
 
-            if self.word_index >= len(recommended_words):
-                self.word_index = 0
+                if self.word_index >= len(recommended_words):
+                    self.word_index = 0
 
-            return recommended_words[self.word_index]
-        else:
-            return None
+                return recommended_words[self.word_index]
+            else:
+                return None
 
     def clear(self):
         """Clears the text box.
