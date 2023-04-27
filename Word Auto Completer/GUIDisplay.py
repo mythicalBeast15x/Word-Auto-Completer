@@ -31,7 +31,7 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         """
 
         super().__init__(master, **kwargs)
-        self.num_words = 3
+        self.num_words = 5
         self.word_index = 0
 
     def find_auto_complete_part(self, s1:str, s2:str) -> str:
@@ -49,7 +49,7 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
             #print('replaced:',s2.replace(s1, ""))
             return s2.replace(s1, "")
         except Exception:
-            return " - No suggestions"
+            return ""
     
     def recommend_word(self, typed:str, event:tk.Event) -> None:
         """Displays part of the word which will be recommended.
@@ -143,15 +143,18 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         """
 
         recommended_words = tree.find_closest_words(typed, self.num_words)
-        #print(len(recommended_words))
-        if len(recommended_words) > 0:
-            if event.keysym == "Up":
-                self.word_index += 1
+        print(recommended_words)
+        if recommended_words is not None:
+            if len(recommended_words) > 0 :
+                if event.keysym == "Up":
+                    self.word_index += 1
 
-            if self.word_index >= len(recommended_words):
-                self.word_index = 0
+                if self.word_index >= len(recommended_words):
+                    self.word_index = 0
 
-            return recommended_words[self.word_index]
+                return recommended_words[self.word_index]
+            else:
+                return None
         else:
             return None
 
