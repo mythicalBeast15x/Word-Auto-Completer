@@ -141,18 +141,19 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
             str: Returns more words.
         """
 
-        recommended_words = tree.find_closest_words(typed, self.num_words)
-        if recommended_words is not None:
-            if len(recommended_words) > 0:
-                if event.keysym == "Up":
-                    self.word_index += 1
-
-                if self.word_index >= len(recommended_words):
-                    self.word_index = 0
-
-                return recommended_words[self.word_index]
+        recommended_words = tree.find_closest_words(typed, self.num_words) # get the list of closest words
+        if recommended_words is not None: # if there are words to be recommended
+            if event.keysym == "Prior": # if the pg up key is pressed
+                self.word_index += 1 # get the next recommended word
             else:
-                return None
+                self.word_index = 0 # otherwise get the first recommended word
+            
+            if self.word_index >= len(recommended_words): # there are no more words to be recommended
+                self.word_index = 0 # cycle back to the first recommended word
+
+            return recommended_words[self.word_index]
+        else:
+            return None
 
     def clear(self):
         """Clears the text box.
