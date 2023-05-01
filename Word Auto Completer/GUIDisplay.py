@@ -142,7 +142,7 @@ class Text_box(tk.Text): # inherits from tkinter's Text class
         """
 
         recommended_words = tree.find_closest_words(typed, self.num_words) # get the list of closest words
-        if recommended_words is not None: # if there are words to be recommended
+        if recommended_words is not None and len(recommended_words) != 0: # if there are words to be recommended
             if event.keysym == "Prior": # if the pg up key is pressed
                 self.word_index += 1 # get the next recommended word
             else:
