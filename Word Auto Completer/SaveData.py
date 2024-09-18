@@ -116,20 +116,33 @@ def createTree(file: str) -> Tree:
         tree.insert_word(word.strip())
     return tree
 
+# ----------- Adding Words ---------------------
+# When Adding Words: UpdatedTemporaryWords.txt
+#   1). Add words to desired
+#   2). uncomment this
+#   3). Run this file
+#   4). re-comment this section
 
+
+'''
+tree = createTree('UpdatedTemporaryWords.txt')
+saveInformation(
+    'tempSaveInformation2.data', tree)
+'''
+# -------------------------------------------------
 # Gets the tree from the binary file.
 # Ensures that the it finds the file in the directory.
 try:
     tree = retrieveInformation(
-        'Word-Auto-Completer/Word Auto Completer/saveInformation.data')
+        'Word-Auto-Completer/Word Auto Completer/saveInformation2.data')
 except FileNotFoundError:
     try:
         tree = retrieveInformation(
-            'Word Auto Completer/saveInformation.data')
+            'Word Auto Completer/saveInformation2.data')
     except FileNotFoundError:
         try:
             tree = retrieveInformation(
-                'saveInformation.data')
+                'TempSaveInformation2.data')
         except Exception as e:
             logging.log(40, e)
             sys.exit(0)
