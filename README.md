@@ -1,4 +1,5 @@
 # Word-Auto-Completer
+![Photo of Word-Auto-Completer Application]([URL_or_path_to_image](https://github.com/mythicalBeast15x/Word-Auto-Completer/blob/main/Application_Picture.png))
 An application that auto completes words using a tree data structure. Will incorporate a GUI for user experience.
 Imports data from a binary file to save time on start up of the application.
 
